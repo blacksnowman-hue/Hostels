@@ -1,7 +1,8 @@
-import express, { Request, Response } from "express";
-import User from "../models /user";
+import express, { NextFunction, Request, Response  } from "express";
+import User from "../models/user";
 import jwt from "jsonwebtoken";
 import { check, validationResult } from "express-validator/lib";
+
 import verifyToken from "../middleware/auth";
 
 
@@ -31,7 +32,7 @@ router.post("/register",  [
     check("password", "Password with 6 or more characters required").isLength({
       min: 6,
     }),
-  ],   async (req: Request, res: Response) => {
+  ], async (req: Request, res: Response) => {
     const errors = validationResult(req);
     if (!errors.isEmpty()) {
       return res.status(400).json({ message: errors.array() });
